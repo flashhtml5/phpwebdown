@@ -405,8 +405,19 @@ abstract class phpQuery {
 	 * @return phpQueryObject|QueryTemplatesSource|QueryTemplatesParse|QueryTemplatesSourceQuery
 	 */
 	public static function newDocumentFile($file, $contentType = null) {
+
+
+        $content=file_get_contents($file);
+
+        if($content==null){
+            echo  "Retry:";
+            $content=file_get_contents($file);
+
+        }
+
+
 		$documentID = self::createDocumentWrapper(
-			file_get_contents($file), $contentType
+            $content, $contentType
 		);
 		return new phpQueryObject($documentID);
 	}
